@@ -1,0 +1,110 @@
+
+library(GEOquery)
+library(Biobase)
+library(BiocManager)
+library(limma)
+
+gse <- getGEO("GSE33000", GSEMatrix = TRUE)
+
+eset <- gse[[1]]
+
+expression_data <- exprs(eset)
+
+dim(expression_data)
+
+sample_data <- pData(eset)
+
+ncol(sample_data)
+
+colnames(sample_data)
+
+head(sample_data)
+
+str(sample_data)
+
+pData()
+
+ncol(sample_data)
+
+colnames(sample_data)
+
+head(sample_data)
+
+str(sample_data)
+
+table(sample_data[["disease status:ch2"]], useNA = "ifany")
+
+age <- as.numeric(
+  gsub(" yrs", "", sample_data[["age:ch2"]])
+)
+
+age <- as.numeric(
+  sub(" yrs", "", sample_data[["age:ch2"]])
+)
+
+
+aggregate(
+  age,
+  by = list(Diagnosis = sample_data[["disease status:ch2"]]),
+  FUN = function(x) c(
+    mean = mean(x, na.rm = TRUE),
+    median = median(x, na.rm = TRUE),
+    min = min(x, na.rm = TRUE),
+    max = max(x, na.rm = TRUE)
+  )
+)
+
+table(
+  Diagnosis = sample_data[["disease status:ch2"]],
+  Gender = sample_data[["gender:ch2"]]
+)
+
+colSums(is.na(sample_data))
+
+table(sample_data[["gender:ch2"]], useNA = "ifany")
+
+summary(age)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
